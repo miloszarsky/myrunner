@@ -1,29 +1,22 @@
-# .github/workflows/docker-publish.yml
-name: Build and Push Docker Image
+# .github/workflows/docker-release.yml
+name: Build and Push Release Docker Image
 
-# Controls when the action will run.
-# This workflow runs on pushes to the main branch.
+# This workflow runs when a new release is published
 on:
-  push:
-    branches: [ "main" ]
+  release:
+    types: [published]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-push:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Grant GITHUB_TOKEN the permissions it needs to push to the registry
     permissions:
       contents: read
       packages: write
 
     steps:
-      # 1. Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Log in to the GitHub Container Registry
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -31,16 +24,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 3. Extract metadata (tags and labels) for Docker
-      # This step automatically creates tags based on the git reference.
-      # For a push to main, it will create tags like 'latest' and the git SHA.
+      # This step is now configured to extract tags from the GitHub Release event
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable={{is_latest}}
 
-      # 4. Build and push the Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
