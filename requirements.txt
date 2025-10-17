@@ -1,0 +1,17 @@
+#python3 -m pip install -r requirements.txt
+ansible-core==2.18.4
+cryptography
+jinja2
+netaddr
+MarkupSafe
+requests
+unidecode
+passlib
+PyYaml
+python-dateutil
+paramiko
+urllib3
+httpx
+bs4
+ansible-pylibssh
+lxml
