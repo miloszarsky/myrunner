@@ -42,6 +42,7 @@ COPY entrypoint.sh /entrypoint.sh
 COPY requirements.txt .
 COPY motd /etc/motd
 COPY ansible.cfg /etc/ansible/ansible.cfg
+RUN chmod 644 /etc/ansible/ansible.cfg
 
 RUN python3 -m venv /opt/.venv
 RUN . /opt/.venv/bin/activate && pip install -r requirements.txt \
