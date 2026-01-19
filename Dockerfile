@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        sudo systemd systemd-sysv gnupg software-properties-common \
-       wget whois fping less net-tools curl unzip inetutils-ping ssh git jq nano vim rsync \
+       wget whois fping less net-tools curl unzip inetutils-ping ssh git jq yq nano vim rsync \
        mc bash-completion dnsutils genisoimage \
        python3 python3-pip python3-venv sshpass python3-netaddr \
     && rm -rf /var/lib/apt/lists/* \
