@@ -15,3 +15,4 @@ httpx
 bs4
 ansible-pylibssh
 lxml
+yq
