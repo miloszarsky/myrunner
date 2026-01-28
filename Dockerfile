@@ -57,7 +57,8 @@ RUN . /opt/.venv/bin/activate && pip install -r requirements.txt \
     && ansible-galaxy collection install community.general \
     && ansible-galaxy collection install community.crypto \
     && ansible-galaxy collection install community.postgresql \
-    && ansible-galaxy collection install community.docker
+    && ansible-galaxy collection install community.docker \
+    && ansible-galaxy collection install community.mongodb
 
 WORKDIR /mnt
 ENTRYPOINT [ "/entrypoint.sh" ]
