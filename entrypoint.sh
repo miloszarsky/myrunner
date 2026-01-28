@@ -67,10 +67,16 @@ else
 
     if [ ! -v "${PS1}" ]; then
         export PS1="\[\033[0;33m\][\u \W] $ \[\033[0;00m\]"
-        echo 'export PS1="\[\033[0;33m\][\u \W] $ \[\033[0;00m\]"' >> /home/runner/.bashrc
         echo 'export PS1="\[\033[1;35m\][\u \W] $ \[\033[0;00m\]"' >> /root/.bash_profile
-        echo 'source /usr/share/bash-completion/bash_completion' >> /home/runner/.bashrc
-        echo 'source /opt/.venv/bin/activate' >> /home/runner/.bashrc
+        cat << 'EOF' >> /home/runner/.bashrc
+        if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+          . /usr/lib/git-core/git-sh-prompt
+        fi
+        export GIT_PS1_SHOWDIRTYSTATE=1
+        export PS1="\[\033[0;33m\][\u \W]\[\033[0;32m\]\$(__git_ps1 ' (%s)')\[\033[0;33m\] $ \[\033[0;00m\]"
+        source /usr/share/bash-completion/bash_completion
+        source /opt/.venv/bin/activate
+        EOF
     fi
 
     if [ -f "/home/runner/.bashrc" ]; then
