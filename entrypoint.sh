@@ -65,6 +65,31 @@ else
         chmod -R 777 /home/runner/.ansible
     fi
 
+if [ -z "$PS1" ]; then
+    # 1. Set the prompt for the current session (Yellow)
+    export PS1="\[\033[0;33m\][\u \W]\[\033[0;32m\]\$(__git_ps1 ' (%s)')\[\033[0;33m\] $ \[\033[0;00m\]"
+
+    # 2. Update Root's profile (Purple)
+    echo 'export PS1="\[\033[1;35m\][\u \W] $ \[\033[0;00m\]"' >> /root/.bash_profile
+
+    # 3. Append Git-aware configuration to the runner's .bashrc
+    cat << 'EOF' >> /home/runner/.bashrc
+
+# --- Added by Setup Script ---
+if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+  . /usr/lib/git-core/git-sh-prompt
+fi
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PS1="\[\033[0;33m\][\u \W]\[\033[0;32m\]\$(__git_ps1 ' (%s)')\[\033[0;33m\] $ \[\033[0;00m\]"
+
+# Only source these if they exist to avoid 'File not found' errors
+[ -f /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+[ -f /opt/.venv/bin/activate ] && . /opt/.venv/bin/activate
+# ------------------------------
+EOF
+fi
+
     if [ ! -v "${PS1}" ]; then
         export PS1="\[\033[0;33m\][\u \W] $ \[\033[0;00m\]"
         echo 'export PS1="\[\033[1;35m\][\u \W] $ \[\033[0;00m\]"' >> /root/.bash_profile
