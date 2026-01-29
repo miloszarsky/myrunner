@@ -56,3 +56,16 @@ eg.:
 ```
 myrunner ansible-playbook playbook.yml
 ```
+
+## **Docker Build: Used Tools & Repositories**
+
+| Tool | Repository / Source |
+| --- | --- |
+| **OpenTofu** | [opentofu/opentofu](https://github.com/opentofu/opentofu) |
+| **sops** | [getsops/sops](https://github.com/getsops/sops) |
+| **age** | [FiloSottile/age](https://github.com/FiloSottile/age) |
+| **kubectl** | [kubernetes/kubectl](https://github.com/kubernetes/kubectl) |
+| **Helm** | [helm/helm](https://github.com/helm/helm) |
+| **AWS CLI** | [aws/aws-cli](https://github.com/aws/aws-cli) |
+| **Azure CLI** | [Azure/azure-cli](https://github.com/Azure/azure-cli) |
+| **yq** | [mikefarah/yq](https://github.com/mikefarah/yq) |
