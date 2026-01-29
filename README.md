@@ -1,5 +1,5 @@
 # myrunner
-Docker environment for running ansible and opentofu
+Docker environment for running devops tools
 
 ## create alias in system
 LINUX
