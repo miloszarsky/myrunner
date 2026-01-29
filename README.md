@@ -67,5 +67,4 @@ myrunner ansible-playbook playbook.yml
 | **kubectl** | [kubernetes/kubectl](https://github.com/kubernetes/kubectl) |
 | **Helm** | [helm/helm](https://github.com/helm/helm) |
 | **AWS CLI** | [aws/aws-cli](https://github.com/aws/aws-cli) |
-| **Azure CLI** | [Azure/azure-cli](https://github.com/Azure/azure-cli) |
 | **yq** | [mikefarah/yq](https://github.com/mikefarah/yq) |
