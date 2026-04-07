@@ -35,7 +35,26 @@ myrunner() {
 
 MACOS
 
-```alias myrunner='d() { docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.bash_history:/home/runner/.bash_history -v ~/.ssh:/home/runner/.ssh -v $(pwd):/mnt -v $(readlink -f $SSH_AUTH_SOCK):/run/host-services/ssh-auth.sock -e SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock --network host -e RUNNER_UID=$(id -u) -e RUNNER_GID=$(id -g) myrunner:latest "$@" };d'```
+```
+myrunner() {
+  # macOS does not support 'readlink -f'. 
+  # We use a python one-liner that comes natively with macOS dev tools 
+  # to resolve the SSH socket path if it happens to be a symlink.
+  local REAL_SSH_SOCK=$(python3 -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$SSH_AUTH_SOCK")
+
+  docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ~/.bash_history:/home/runner/.bash_history \
+    -v ~/.ssh:/home/runner/.ssh \
+    -v "$(pwd):/mnt" \
+    -v "${REAL_SSH_SOCK}:/run/host-services/ssh-auth.sock" \
+    -e SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock \
+    --network host \
+    -e RUNNER_UID=$(id -u) \
+    -e RUNNER_GID=$(id -g) \
+    myrunner:latest "$@"
+}
+```
 
 WINDOWS
 
