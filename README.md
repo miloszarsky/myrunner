@@ -39,7 +39,16 @@ MACOS
 
 WINDOWS
 
-```alias myrunner='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.bash_history:/home/runner/.bash_history -v ~/.ssh:/home/runner/.ssh -v $(pwd):/mnt -v $(readlink -f $SSH_AUTH_SOCK):/run/host-services/ssh-auth.sock -e SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock --network host -e RUNNER_UID=$(id -u) -e RUNNER_GID=$(id -g) myrunner:latest "$@"'```
+```
+alias myrunner='podman run --rm -it `
+ -v //var/run/docker.sock:/var/run/docker.sock `
+ -v "$HOME\.ssh:/home/runner/.ssh" `
+ -v "$($PWD.Path):/mnt" `
+ --network host `
+ -e RUNNER_UID=1000 `
+ -e RUNNER_GID=1000 `
+ ghcr.io/miloszarsky/myrunner:latest $arg'
+```
 
 ## usage
 
