@@ -19,7 +19,7 @@ myrunner() {
     docker run --rm -it \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v ~/.bash_history:/home/runner/.bash_history \
-        -v ~/.ansible-ava.vault:/home/runner/.ansible-ava.vault \
+        -v ~/.ansible.vault:/home/runner/.ansible.vault \
         -v ~/.ssh:/home/runner/.ssh \
         -v ~/.sops:/home/runner/.sops \
         -v ~/.kube:/home/runner/.kube \
